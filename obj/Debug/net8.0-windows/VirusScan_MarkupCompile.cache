@@ -1,0 +1,20 @@
+﻿VirusScan
+
+
+winexe
+C#
+.cs
+C:\Users\Administrator\Documents\Visual Studio 2022\VirusScan2\obj\Debug\net8.0-windows\
+VirusScan
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+C:\Users\Administrator\Documents\Visual Studio 2022\VirusScan2\App.xaml
+8-1061690684
+
+37-1192671700
+223-976299361
+Controls\AIControl\DeepseekWindow.xaml;Controls\CustomControl\ResultMessageBox.xaml;Controls\CustomControl\YesNoCheckControl.xaml;Controls\CustomControl\YesNoDialog.xaml;Controls\FileAndUrlControls\BackgroundScanning.xaml;Controls\FileAndUrlControls\FileScan.xaml;Controls\FileAndUrlControls\LinkScan.xaml;MainWindow.xaml;
+
+True
+

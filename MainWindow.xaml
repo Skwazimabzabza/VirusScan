@@ -1,0 +1,292 @@
+﻿<Window x:Class="VirusScan2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirusScan2"
+        mc:Ignorable="d"
+        Title="VirusScan" Height="400" Width="800"
+        MinHeight="350" MinWidth="600"
+        Icon="pack://application:,,,/VirusScan.ico">
+
+    <Window.Resources>
+        <!-- Стиль для кнопок с анимацией "выпадения" (CubicEase) -->
+        <Style x:Key="FallingButtonStyle" TargetType="Button">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform Y="-100" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Background" Value="MidnightBlue" />
+            <Setter Property="Foreground" Value="LightSkyBlue" />
+            <Setter Property="BorderBrush" Value="Aquamarine" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="130" />
+            <Setter Property="Cursor" Value="Hand" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#1E3A5F" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Cyan" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#0A1E3D" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="LightCyan" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Button.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="RenderTransform.Y"
+                                From="-100" To="0" 
+                                Duration="0:0:0.6">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="Opacity"
+                                From="0" To="1" 
+                                Duration="0:0:0.4" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль для TextBlock с анимацией -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LightBlue" />
+
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                From="0.8" To="1" 
+                                Duration="0:0:0.5"
+                                BeginTime="0:0:0">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                From="0.8" To="1" 
+                                Duration="0:0:0.5"
+                                BeginTime="0:0:0">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="Opacity"
+                                From="0" To="1" 
+                                Duration="0:0:0.4"
+                                BeginTime="0:0:0" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Stretch="Uniform" MaxWidth="1000" MaxHeight="600">
+        <Grid Width="700" Height="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Заголовок - Row 0 (верхняя часть) -->
+            <TextBlock Text="Выберете нужную вам проверку" 
+                       Grid.Row="0" 
+                       Grid.ColumnSpan="3"
+                       Foreground="LightBlue" 
+                       FontSize="40" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="20,20,20,20"
+                       Opacity="0">
+                <TextBlock.RenderTransform>
+                    <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                </TextBlock.RenderTransform>
+                <TextBlock.RenderTransformOrigin>0.5,0.5</TextBlock.RenderTransformOrigin>
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                    From="0.8" To="1" 
+                                    Duration="0:0:0.6">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                    From="0.8" To="1" 
+                                    Duration="0:0:0.6">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0" To="1" 
+                                    Duration="0:0:0.4" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+
+            <!-- Кнопка 1 - Row 2 (нижняя часть), Column 0 -->
+            <Button Click="LinkScan_Button_Click" 
+                    Grid.Row="2" 
+                    Grid.Column="0"
+                    Content="Проверить ссылку"
+                    Style="{StaticResource FallingButtonStyle}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="RenderTransform.Y"
+                                    From="-100" To="0" 
+                                    Duration="0:0:0.6"
+                                    BeginTime="0:0:0.2">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0" To="1" 
+                                    Duration="0:0:0.4"
+                                    BeginTime="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Кнопка 2 - Row 2 (нижняя часть), Column 2 -->
+            <Button Click="FileScan_Button_Click" 
+                    Grid.Row="2" 
+                    Grid.Column="2"
+                    Content="Проверить файл"
+                    Style="{StaticResource FallingButtonStyle}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="RenderTransform.Y"
+                                    From="-100" To="0" 
+                                    Duration="0:0:0.7"
+                                    BeginTime="0:0:0.4">
+                                    <DoubleAnimation.EasingFunction>
+                                        <BounceEase Bounces="2" Bounciness="2" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0" To="1" 
+                                    Duration="0:0:0.3"
+                                    BeginTime="0:0:0.4" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Кнопка 3 - Row 1 (Верхняя часть)-->
+            <Button Click="BackgroundScan_Button_Click" 
+        Grid.Row="1" 
+        Margin="350,0,0,0"
+        Content="Фоновое сканирование"
+        Style="{StaticResource FallingButtonStyle}"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation 
+                        Storyboard.TargetProperty="RenderTransform.Y"
+                        From="-100" To="0" 
+                        Duration="0:0:0.7"
+                        BeginTime="0:0:0.4">
+                                    <DoubleAnimation.EasingFunction>
+                                        <BounceEase Bounces="2" Bounciness="2" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation 
+                        Storyboard.TargetProperty="Opacity"
+                        From="0" To="1" 
+                        Duration="0:0:0.3"
+                        BeginTime="0:0:0.4" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!--<CheckBox x:Name="MonitoringCheckBox" 
+                          Content="Включить мониторинг загрузок"
+                          Checked="MonitoringCheckBox_Checked"
+                          Unchecked="MonitoringCheckBox_Unchecked"
+                          IsChecked="False"
+                          Foreground="White"
+                          FontSize="16"
+                          FontWeight="Bold"
+                          Margin="0,0,10,0"
+                          VerticalAlignment="Center"/>-->
+        </Grid>
+    </Viewbox>
+
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/Background.jpg"/>
+    </Window.Background>
+</Window>

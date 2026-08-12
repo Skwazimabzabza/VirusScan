@@ -1,0 +1,182 @@
+﻿<Window x:Class="VirusScan2.Controls.FileAndUrlControls.BackgroundScanning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirusScan2.Controls.FileAndUrlControls"
+        mc:Ignorable="d"
+        Title="BackgroundScanning" Height="450" Width="800"
+        MinHeight="200" MinWidth="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        WindowStyle="SingleBorderWindow"
+        Background="#1A1A2E">
+
+    <Window.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="LightSkyBlue" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CCCCCC" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с чекбоксом по центру -->
+        <Border Grid.Row="0"
+                Background="MidnightBlue"
+                CornerRadius="8,8,0,0"
+                Padding="20,15"
+                Margin="20,20,20,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Чекбокс по центру -->
+                <CheckBox x:Name="BackgroundModeCheckBox"
+                          Content="Работать в фоновом режиме"
+                          Checked="BackgroundModeCheckBox_Checked"
+                          Unchecked="BackgroundModeCheckBox_Unchecked"
+                          Grid.Column="1" />
+
+                <!-- Индикатор статуса -->
+                <Border x:Name="StatusIndicator" 
+                        Width="14" 
+                        Height="14" 
+                        CornerRadius="7"
+                        Background="#FF4444"
+                        Grid.Column="2"
+                        Margin="15,0,10,0"
+                        VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF4444" BlurRadius="8" Opacity="0.6" />
+                    </Border.Effect>
+                </Border>
+
+                <!-- Текст статуса -->
+                <TextBlock x:Name="StatusTextBlock" 
+                           Text="Остановлен" 
+                           Foreground="#AAAAAA"
+                           Grid.Column="3"
+                           FontSize="14"
+                           VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <!-- Центральная область с информацией -->
+        <Border Grid.Row="1"
+                Background="#16213E"
+                CornerRadius="0"
+                Margin="20,0,20,0"
+                Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Основная информация -->
+                <StackPanel Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,0,0,20">
+                    <TextBlock Text="Фоновое сканирование"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="LightSkyBlue"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10" />
+
+                    <TextBlock Text="При включении этого режима сканирование будет продолжаться"
+                               FontSize="14"
+                               Foreground="#888888"
+                               HorizontalAlignment="Center" />
+
+                    <TextBlock Text="даже после закрытия окна сканирования"
+                               FontSize="14"
+                               Foreground="#888888"
+                               HorizontalAlignment="Center" />
+
+                    <Separator Margin="0,20,0,20" 
+                               Background="#2A2A4A" 
+                               Height="1" />
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBlock Text="Текущий статус:" 
+                                   Foreground="#AAAAAA"
+                                   Margin="0,0,10,0" />
+                        <TextBlock x:Name="StatusBarText" 
+                                   Text="Готов к работе" 
+                                   Foreground="#4CAF50"
+                                   FontWeight="Bold" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Нижний информационный блок -->
+                <Border Grid.Row="1"
+                        Background="#1A1A2E"
+                        CornerRadius="8"
+                        Padding="15,10"
+                        BorderBrush="#2A2A4A"
+                        BorderThickness="1">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBlock Text="ℹ️" 
+                                   FontSize="18"
+                                   Foreground="#888888"
+                                   Margin="0,0,10,0" />
+                        <TextBlock Text="Фоновый режим позволяет сканировать файлы в фоне, не отвлекая вас от работы"
+                                   Foreground="#888888"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Нижняя панель -->
+        <Border Grid.Row="2"
+                Background="MidnightBlue"
+                CornerRadius="0,0,8,8"
+                Padding="20,15"
+                Margin="20,0,20,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Click="BackButton_Click" Content="Вернуться назад"
+                  Background="MidnightBlue" Foreground="LightSkyBlue"
+                        FontSize="10" Width="100" HorizontalAlignment="Left"/>
+
+
+                <TextBlock Grid.Column="1"
+                           Text="⚙️"
+                           Foreground="#555555"
+                           FontSize="16"
+                           VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+	  <ApplicationIcon>VirusScan.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="FileScanIcon.ico" />
+    <None Remove="LinkScan.png" />
+    <None Remove="URL-scan-icon.png" />
+    <None Remove="URL-scan-icon2.png" />
+    <None Remove="UrlScan.ico" />
+    <None Remove="VirusScan.ico" />
+    <None Remove="VirusScan.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="aSystem.Windows.Forms" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Polly" Version="8.7.0" />
+    <PackageReference Include="RestSharp" Version="114.0.0" />
+    <PackageReference Include="SharpCompress" Version="0.49.1" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
+    <PackageReference Include="System.Management" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Background.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FileScanIcon.ico" />
+    <Resource Include="UrlScan.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="UrlScanIcon.ico" />
+    <Resource Include="file-scan-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="URL-scan-icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="URL-scan-icon2.png" />
+    <Resource Include="url-scan-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="VirusScan.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
