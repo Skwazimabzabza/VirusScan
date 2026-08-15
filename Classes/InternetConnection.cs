@@ -21,7 +21,6 @@ namespace VirusScan2.Classes
         {
             try
             {
-                // Используем метод Head вместо Get, чтобы не скачивать саму страницу (экономит трафик)
                 using (var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://www.google.com")))
                 {
                     return response.IsSuccessStatusCode;
