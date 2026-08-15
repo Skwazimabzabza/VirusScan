@@ -12,7 +12,7 @@ namespace VirusScan2.AntivirusesView
     public class AntivirusRankingView
     {
 
-        // Метод для парсинга статистики
+        // Метод для парсинга статистики ссылок
         public string ParseAnalysisStatsUrl(JObject analysisJson)
         {
             try
@@ -109,6 +109,7 @@ namespace VirusScan2.AntivirusesView
             }
         }
 
+        // Метод для парсинга статистики файлов
         public string ParseAnalysisStatsFile(JObject analysisJson)
         {
             try
