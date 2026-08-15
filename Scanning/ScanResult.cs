@@ -9,6 +9,7 @@ namespace VirusScan2.Scanning
 {
     public static class ScanResult
     {
+        //Метод для проверки вирусные ли ссылка/файл
         public static bool IsMalicious(JObject jsonVTResults)
         {
             var stats = jsonVTResults?["data"]?["attributes"]?["stats"];
@@ -19,6 +20,7 @@ namespace VirusScan2.Scanning
             return false;
         }
 
+        //Метод для проверки безопасные ли ссылка/файл
         public static bool IsHarmless(JObject jsonVTResults)
         {
             var stats = jsonVTResults?["data"]?["attributes"]?["stats"];
