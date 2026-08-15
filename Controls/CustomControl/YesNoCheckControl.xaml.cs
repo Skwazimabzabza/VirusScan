@@ -55,7 +55,6 @@ namespace VirusScan2.Controls.CustomControl
                     this.DragMove();
                 }
             };
-            // Устанавливаем иконку вопроса (по умолчанию)
 
         }
 
