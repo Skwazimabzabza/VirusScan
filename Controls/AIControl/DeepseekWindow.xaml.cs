@@ -39,32 +39,5 @@ namespace VirusScan2.Control
         {
             this.Close();   
         }
-
-        public void ClearContent()
-        {
-            // Очищаем все элементы управления в окне
-            // Например, если у тебя есть TextBlock с ответом ИИ:
-            if (this.Content is Grid grid)
-            {
-                foreach (var child in grid.Children)
-                {
-                    if (child is TextBlock textBlock)
-                    {
-                        textBlock.Text = string.Empty;
-                    }
-                    else if (child is ListBox listBox)
-                    {
-                        listBox.Items.Clear();
-                    }
-                    else if (child is RichTextBox richTextBox)
-                    {
-                        richTextBox.Document.Blocks.Clear();
-                    }
-                }
-            }
-
-            // Или просто очищаем всё содержимое
-            this.Content = null;
-        }
     }
 }
