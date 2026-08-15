@@ -61,8 +61,6 @@ namespace VirusScan2.Classes
             return true;
         }
 
-        // ===== Вспомогательные методы =====
-
         private static bool IsPrivateIp(string host)
         {
             if (string.IsNullOrEmpty(host)) return false;
