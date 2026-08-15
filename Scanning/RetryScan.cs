@@ -161,17 +161,17 @@ namespace VirusScan2.Scanning
             string hash = ComputeSha256(filePath);
             _cacheManager = new CacheManager("filesCache.json");
 
-            // ===== 1. Проверяем локальный кэш в памяти =====
+            //1. Проверяем локальный кэш в памяти
             if (_cacheManager.TryGet(hash, out string cachedResult))
             {
                 Debug.WriteLine($"Кэш: результат для {hash} найден.");
                 return JObject.Parse(cachedResult);
             }
 
-            // ===== 2. Загружаем кэш с диска (если в памяти нет) =====
+            //2. Загружаем кэш с диска (если в памяти нет)
             
 
-            // ===== 3. Проверяем БД =====
+            //3. Проверяем БД
             try
             {
                 var response = await DBClient.Instance.From<FilesDB>()
@@ -211,14 +211,14 @@ namespace VirusScan2.Scanning
                 Debug.WriteLine($"Ошибка БД: {ex.Message}");
             }
 
-            // ===== 4. БД недоступна или записи нет — отправляем в VirusTotal =====
+            //4. БД недоступна или записи нет — отправляем в VirusTotal
             string scanResult = await ScanWithRetryPolicyFile(filePath, baseUrl);
             var analysisJson = JObject.Parse(scanResult);
 
-            // ===== 5. Сохраняем в локальный кэш и на диск =====
+            //5. Сохраняем в локальный кэш и на диск
             _cacheManager.Set(hash, scanResult);
 
-            // ===== 6. Пытаемся сохранить в БД =====
+            //6. Пытаемся сохранить в БД
             try
             {
                 var scan = new FilesDB
@@ -241,7 +241,7 @@ namespace VirusScan2.Scanning
             return analysisJson;
         }
 
-        // ===== Вспомогательные методы =====
+        //Вспомогательные методы
 
         private void SaveCacheToDisk()
         {
@@ -273,14 +273,14 @@ namespace VirusScan2.Scanning
             string urlHash = NormalizeAndHashUrl(url);
             _cacheManager = new CacheManager("urlsCache.json");
 
-            // ===== 1. Проверяем кэш =====
+            //1. Проверяем кэш
             if (_cacheManager.TryGet(urlHash, out string cachedResult))
             {
                 Debug.WriteLine($"Кэш: результат для URL {url} найден.");
                 return JObject.Parse(cachedResult);
             }
 
-            // ===== 2. Проверяем БД =====
+            //2. Проверяем БД
             try
             {
                 var response = await DBClient.Instance.From<URLsDB>()
@@ -332,14 +332,14 @@ namespace VirusScan2.Scanning
                 Debug.WriteLine($"Ошибка БД: {ex.Message}");
             }
 
-            // ===== 3. БД недоступна или записи нет — отправляем в VirusTotal =====
+            //3. БД недоступна или записи нет — отправляем в VirusTotal
             string scanResult = await ScanWithRetryPolicyUrl(url, baseUrl, header);
             var analysisJson = JObject.Parse(scanResult);
 
-            // ===== 4. Сохраняем в кэш =====
+            //4. Сохраняем в кэш
             _cacheManager.Set(urlHash, scanResult);
 
-            // ===== 5. Пытаемся сохранить в БД =====
+            //5. Пытаемся сохранить в БД
             try
             {
                 string status = analysisJson["data"]?["attributes"]?["status"]?.ToString();
