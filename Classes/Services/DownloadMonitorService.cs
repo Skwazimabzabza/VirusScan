@@ -1,4 +1,3 @@
-﻿// Services/DownloadMonitorService.cs
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -103,13 +102,12 @@ public class DownloadMonitorService
         });
     }
 
-    // ========== ОБРАБОТЧИКИ СОБЫТИЙ FileSystemWatcher ==========
+    //ОБРАБОТЧИКИ СОБЫТИЙ FileSystemWatcher
 
     private void OnFileCreated(object sender, FileSystemEventArgs e)
     {
         SafeDispatch(() =>
         {
-            // Chrome/Edge создают временный файл .crdownload
             if (e.Name.EndsWith(".crdownload") || e.Name.EndsWith(".part") || e.Name.EndsWith(".download"))
             {
                 var model = new DownloadModel
@@ -223,7 +221,7 @@ public class DownloadMonitorService
         System.Diagnostics.Debug.WriteLine($"Ошибка мониторинга: {e.GetException().Message}");
     }
 
-    // ========== ЛОГИКА ОТСЛЕЖИВАНИЯ ==========
+    //ЛОГИКА ОТСЛЕЖИВАНИЯ
 
     private void StartTrackingDownload(string filePath, bool isComplete = false)
     {
@@ -338,7 +336,7 @@ public class DownloadMonitorService
         return $"{len:0.##} {sizes[order]}";
     }
 
-    // ========== ВСПОМОГАТЕЛЬНЫЙ МЕТОД ДЛЯ БЕЗОПАСНОГО ВЫЗОВА В UI ==========
+    //ВСПОМОГАТЕЛЬНЫЙ МЕТОД ДЛЯ БЕЗОПАСНОГО ВЫЗОВА В UI
 
     private void SafeDispatch(Action action)
     {
