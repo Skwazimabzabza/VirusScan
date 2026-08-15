@@ -43,11 +43,6 @@ namespace VirusScan2.Control
          string result = property.First["result"]?.ToString();
          string category = property.First["category"]?.ToString();
 
-         // Исключаем:
-         // 1. result == "clean" или "unrated"
-         // 2. category == "undetected", "harmless", "failure", "type-unsupported"
-         // 3. result == null (т.к. это обычно означает "не обнаружено")
-
          bool isClean = result == "clean" || result == "unrated";
          bool isHarmless = category == "harmless" || category == "undetected" ||
                            category == "failure" || category == "type-unsupported";
@@ -75,14 +70,6 @@ namespace VirusScan2.Control
      .Where(name => !string.IsNullOrEmpty(name.engineName))
      .ToList();
             string allEngines = string.Join("\n", results.Select(x => $"Антивирус: {x.engineName}" + "\n" + $"Результат: {x.result}" + "\n"));
-
-            //ResultComboBox.Items.Add(allEngines);
-            //Engines engines = new Engines();
-            //engines.AllEngines = allEngines;
-            //EnginesWindow enginesWindow = new EnginesWindow(engines);
-            //enginesWindow.Show();
-
-
 
             antivirusDetections.Add(new Engines
             {
@@ -129,17 +116,8 @@ namespace VirusScan2.Control
         private void ShowElements(int detectionCount, Button scanButton, Button showButton, TextBlock detectionsCountTextBlock,
             Button dsButton, TextBlock showTextBlock, TextBlock dsTextBlock)
         {
-            //ComboBoxStackPanel.Visibility = Visibility.Visible;
-            //ComboBoxStackPanel.Height = 145;
-            //clickToSee.Visibility = Visibility.Visible;
-            //ResultComboBox.Visibility = Visibility.Visible;
-            detectionsCountTextBlock.Visibility = Visibility.Visible;
-            detectionsCountTextBlock.Text = $"Количество обнаружений: {detectionCount}";
 
             showTextBlock.Visibility = Visibility.Visible;
-
-            
-            //clickToSee.Visibility = Visibility.Visible;
 
             dsButton.Visibility = Visibility.Visible;
             dsTextBlock.Visibility = Visibility.Visible;
@@ -172,11 +150,6 @@ namespace VirusScan2.Control
         public void HideStackPanel(Grid columnGrid, ScrollViewer scrollViewer, Button scanButton, Button showButton, Button dsButton, TextBlock showTextBlock,
             TextBlock detectionsCountTextBlock, TextBlock dsTextBlock)
         {
-            // Скрываем все элементы UI
-            //ComboBoxStackPanel.Visibility = Visibility.Hidden;
-            //ComboBoxStackPanel.Height = 0;
-            //clickToSee.Visibility = Visibility.Hidden;
-            //ResultComboBox.Visibility = Visibility.Hidden;
             if(detectionsCountTextBlock.Visibility == Visibility.Visible)
             {
                 detectionsCountTextBlock.Visibility = Visibility.Collapsed;
@@ -186,32 +159,23 @@ namespace VirusScan2.Control
             {
                 scrollViewer.Visibility = Visibility.Collapsed;
             }
-            
-
-            // Очищаем текст
-            //DetectionsCountTextBlock.Text = "";
 
             // Удаляем вторую колонку если она существует
             if (columnGrid.ColumnDefinitions.Count >= 2)
             {
-                // Сначала нужно переместить или удалить элементы из удаляемой колонки
                 var elementsToRemove = new List<UIElement>();
 
                 foreach (UIElement child in columnGrid.Children)
                 {
-                    if (Grid.GetColumn(child) == 1) // Если элемент во второй колонке
+                    if (Grid.GetColumn(child) == 1)
                     {
                         elementsToRemove.Add(child);
                     }
                 }
-
-                // Удаляем найденные элементы
                 foreach (var element in elementsToRemove)
                 {
                     columnGrid.Children.Remove(element);
                 }
-
-                // Удаляем саму колонку (всегда удаляем последнюю)
                 columnGrid.ColumnDefinitions.RemoveAt(columnGrid.ColumnDefinitions.Count - 1);
                 
             }
@@ -253,14 +217,11 @@ namespace VirusScan2.Control
                 WindowManager.deepseekWindow.Close();
                 WindowManager.deepseekWindow = null;
             }
-            // Очищаем engines
             if (engines != null)
             {
                 engines.DeepseekReply = string.Empty;
                 engines.AllEngines = string.Empty;
             }
-
-            // Очищаем antivirusDetections
             antivirusDetections.Clear();
         }
 
