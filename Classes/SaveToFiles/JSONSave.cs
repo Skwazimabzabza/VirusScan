@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace VirusScan2.Classes.SaveToFiles
 {
+//Метод для сохранения ответа от VT в файл
     public static class JSONSave
     {
         public static async Task Save(JObject analysisJson, string filePath)
