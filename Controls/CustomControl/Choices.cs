@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirusScan2.Controls.CustomControl
 {
+//Для выбора в кастомных окнах
     public enum Choice
     {
         Yes,
