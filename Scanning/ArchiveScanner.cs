@@ -295,6 +295,7 @@ namespace VirusScan2.Scanning
         }
 
 
+        //Методы для проверки на запароленный архив
         public bool IsZipPasswordProtected()
         {
             try
@@ -358,6 +359,7 @@ namespace VirusScan2.Scanning
             }
         }
 
+        //Методы для фоновой распаковки архива
         public async Task BackgroundZipScan(string baseUrl, string filePath, string fileName, JObject archiveAnalysisJson)
         {
             uIControl = new UIControl(antivirusDetections, engines);
