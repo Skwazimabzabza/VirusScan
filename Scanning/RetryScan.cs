@@ -96,6 +96,7 @@ namespace VirusScan2.Scanning
                 string status = analysisJson["data"]?["attributes"]?["status"]?.ToString();
                 var stats = analysisJson["data"]?["attributes"]?["stats"];
 
+                //Последняя часть условия из-за того что VT может вернуть статус "in-progress" даже когда анализ завершён(только с ссылками такое происходит)
                 if (status == "completed" || (status == "in-progress" && ScanResult.IsMalicious(analysisJson)) || (status == "in-progress" && ScanResult.IsHarmless(analysisJson)))
                 {
                     MessageBox.Show($"УСПЕХ! Возвращаю результат:\n Cтатус: {status}");
